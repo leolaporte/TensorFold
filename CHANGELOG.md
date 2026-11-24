@@ -4,6 +4,8 @@ Each release's page on GitHub has its notes and measurements. See [the 1.0.0 rel
 
 ## Unreleased
 
+- Living weights v6 (opt-in): folded memory weights stored exactly as computed, in-flight conversational learning, belief revision and a crash-safe delta journal for Llama, Nemotron, Qwen3.5 and Qwen3.8-27B; with learning off, replies are unchanged (#4937).
+
 - Hy4-flash: a host weight map for its ModelOpt NVFP4 build (groups of 16, no KV quantization), with the build's recipe and quality notes; serving it comes in later slices (#4110). Thanks @atakann.
 
 - OCR: `POST /ocr` takes docTR's request contract (step 5 of #2440), with each page's response naming its file (#2574). Thanks @laudney.
