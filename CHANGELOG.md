@@ -4,6 +4,8 @@ Each release's page on GitHub has its notes and measurements. See [the 1.0.0 rel
 
 ## Unreleased
 
+- GLM on Metal: add TFQ3 (`2D-AffineCoset/half4`) zero-copy weight loading (`layer_XX.tffpw`, `nonmoe.tffpw`, `pw_v3_tables.bin`) and modular Metal decode/prefill kernels with both M5 NAX and pre-M5 `simdgroup_matrix` prefill, plus 8-bit/64 KDA split-parts/window kernels. On an M5 Ultra, `GLM-5.3-Flash-TFQ3` (`139.55 GB` on disk, `138.23 GB` in buffers) loads in 8.4 s, matches `depth 0 == depth 3` bit-identically, scores `2.7884` NLL on `e8_ppl` (`3.1184` weighted across 4 prompts vs `3.1846` raw FP8), prefills `p2048` at `1,567 tok/s`, and decodes at `69.2 tok/s` (`B=1`) / `87–104 tok/s` live MTP streaming; non-TFQ3 checkpoints compile no TFQ3 kernels (#4953).
+
 - GLM on Metal: `GLM_POOL_TOKENS` sizes the shared latent pool apart from each stream's `--context` window, so one Mac's streams can share a 2M-token pool with zero output-token differences (#3906). Thanks to @gilby.
 
 - DeepSeek-V4.1 on Metal: `TF_DSV41_ROUND_PROF=1` times every decode round (host prepare, encode, wait and choose, each command buffer's GPU span and the gaps between them, and the drafter's ingest, propose and finish) and logs mean, p50 and p95 by slots, rows and drafted or plain every 4096 rounds and at close; it is off by default and changes no token (#2951, refs #2984). Thanks to @gilby.
